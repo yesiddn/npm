@@ -215,3 +215,90 @@ Puedes utilizar el flag `--depth` para indicar la profundidad de dependencias, e
 ```bash
 npm list --depth 2
 ```
+
+## Instalación de dependencias de versión específica
+
+En ciertas situaciones es necesario instalar **una versión específica de un paquete**, ya sea porque el proyecto no puede actualizarse a versiones recientes, o porque el equipo necesita trabajar sobre una misma versión. Saber instalar cualquier versión de un paquete es fundamental para la gestión de dependencias de tu proyecto.
+
+### Cómo instalar una versión específica de un paquete
+
+Para **instalar una versión exacta** de una dependencia, utiliza el siguiente comando, donde es el nombre del paquete y es la versión exacta.
+
+```bash
+npm install <paquete>@<versión>
+```
+
+También puedes usar la versión `latest` para asegurarte que está instalando la última versión disponible del paquete.
+
+```bash
+npm install <paquete>@latest
+```
+
+Este comando instalará la versión exacta del paquete desde el repositorio de NPM. Esto sirve para manejar diferentes versiones del paquete instalado donde sea compatible con el proyecto actual y no provoque errores.
+
+Por ejemplo:
+
+```bash
+npm install json-server@0.15.0
+```
+
+### Cómo instalar dependencias opcionales
+
+Las dependencias opcionales son aquellas que **no son obligatorias para el proyecto**, es decir, sin estas la aplicación servirá. Estas dependencias ofrecen una ayuda para construir código de forma óptima, por ejemplo, formatear el código, agregar estilos, levantar un servidor para observar los cambios.
+
+Para instalar una dependencia opcional, utiliza el siguiente comando.
+
+```bash
+npm install --save-optional <paquete> 
+npm install <paquete> -O
+npm install -O <paquete>
+```
+
+Ten en cuenta la `O` mayúscula, si utilizas la `o` minúscula, el paquete se instalará como dependencia local.
+
+Las **dependencias opcionales** se encuentran en el `package.json` en la propiedad `"optionalDependencies"`, seguido de la versión que fue instalada.
+
+```json
+{ 
+  ...
+  
+  "optionalDependencies": { 
+    "paquete": "1.0.0" 
+  } 
+
+  ...
+}
+```
+
+### Simular la instalación de una dependencia
+
+Se pueden generar conflictos de dependencias cuando se instala un paquete, ya sea porque la versión no es compatible con el proyecto o porque el paquete depende de otro paquete que ya está instalado en el proyecto. Para evitar estos conflictos, es importante simular la instalación de una dependencia antes de instalarla en el proyecto.
+
+Para simular la instalación de una dependencia, utiliza el siguiente comando.
+
+```bash
+npm install --dry-run <paquete>
+npm install <paquete> --dry-run
+```
+
+Este comando mostrará el resultado de instalación sin instalarlo en el proyecto.
+
+Por ejemplo:
+
+```bash
+npm i react --dry-run
+
+added 4 packages in 2s
+
+23 packages are looking for funding run npm fund for details
+```
+
+### Cómo funciona el comando npm install
+
+El archivo `package.json` contiene la información de las dependencias del proyecto, pero si no tienes instaladas esas dependencias, **la manera para instalarlas todas en un solo comando es `npm install` o la forma corta `npm i`**. De este modo, instalarás cada paquete con su respectiva versión indicada en el `package.json`.
+
+Si únicamente tenías el archivo `package.json` después de ejecutar el comando, aparte de instalar todas las dependencias, **se generará un archivo `package-lock.json` y un directorio llamado `node_modules`**.
+
+**El archivo `package-lock.json` muestra todo el árbol de dependencias de tu proyecto**. ¿Qué significa esto? Cada dependencia instalada también tiene sus respectivas dependencias, a estas se las denomina **sub-dependencias**. El árbol de dependencias muestra todas las **sub-dependencias** como si de ramas se tratasen.
+
+**El directorio `node_modules` contiene todos los archivos ejecutables de `Nodejs` y los módulos que contiene cada dependencia**. Este directorio es ignorado por los repositorios de Git, por eso es importante el archivo `package.json`, ya que te permitirá instalar las dependencias con `npm install` cuando realices un `fork` de cualquier repositorio.
