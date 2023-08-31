@@ -192,7 +192,7 @@ npm install -g <paquete>
 ```
 
 **Ten en cuenta que para instalar dependencias globales requiera permisos elevados**, esto se soluciona con la palabra reservada sudo en terminales basadas en Unix, o en Windows ejecutando la terminal como administrador. Puedes revisar este artículo: [Resolving EACCES permissions errors when installing packages globally](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) para evitar dar permisos cada vez que instalas una dependencia global.
-
+package.json
 **Las dependencias globales no se encuentran en el `package.json`**, por esta razón recomiendo no abusar de esta herramienta, ya que el archivo de configuración es muy importante para que otros desarrolladores tengan toda la información pertinente al proyecto, incluyendo las dependencias a utilizar.
 
 #### Cómo visualizar los paquetes instalados
@@ -224,7 +224,7 @@ En ciertas situaciones es necesario instalar **una versión específica de un pa
 
 Para **instalar una versión exacta** de una dependencia, utiliza el siguiente comando, donde es el nombre del paquete y es la versión exacta.
 
-```bash
+```bashpackage.json
 npm install <paquete>@<versión>
 ```
 
@@ -246,7 +246,7 @@ npm install json-server@0.15.0
 
 Las dependencias opcionales son aquellas que **no son obligatorias para el proyecto**, es decir, sin estas la aplicación servirá. Estas dependencias ofrecen una ayuda para construir código de forma óptima, por ejemplo, formatear el código, agregar estilos, levantar un servidor para observar los cambios.
 
-Para instalar una dependencia opcional, utiliza el siguiente comando.
+Para instalar una deppackage.jsonendencia opcional, utiliza el siguiente comando.
 
 ```bash
 npm install --save-optional <paquete> 
@@ -385,4 +385,44 @@ Utiliza el siguiente comando para actualizar a la última versión (latest) de l
 
 ```bash
 npm install <paquete>@latest
+```
+
+## Seguridad y solución de problemas
+
+**La seguridad de tu proyecto puede ser vulnerada por paquetes desactualizados**. Al momento de instalar tus paquetes con el comando `npm install` muestra una serie de advertencias (_**NPM WARN**_) de las dependencias desactualizadas.
+
+### Auditar tus dependencias
+
+El comando `npm audit` muestra una descripción de las dependencias instaladas. Si se encuentran vulnerabilidades, se calculará el impacto al proyecto .
+
+Si se requiere un informe más detallado en formato JSON (JavaScript Object Notation), utiliza el comando `npm audit --json`.
+
+El comando `npm audit fix` proporciona una actualización de los paquetes, similar al comando `npm update <paquete>`. El comando `npm audit fix --force` proporciona una actualización de los subpaquetes de cada paquete, en todos sus niveles de profundidad.
+
+Si el problema persiste, es necesario actualizar el paquete a su última versión.
+
+```bash
+npm install <paquete>@latest
+```
+
+### Solución de problemas
+
+Cuando estés **desarrollando un proyecto con NPM**, puede que generes errores que no permitan seguir con tu trabajo. **Saber manejar los errores es fundamental para solucionarlos y seguir con tus tareas** (y no entrar en pánico). Alguno de estos errores pueden ser:
+
+- Errores en la configuración del archivo `package.json`
+- Errores de dependencias en `node_modules`
+- Errores del sistema operativo
+- Configuración errónea de `Git` o `GitHub`
+- Errores de escritura (typos)
+- Errores que no estén ligados directamente a `NPM`
+
+### Error de dependencias en node_modules
+
+**Existen situaciones en las que instalas una dependencia con una versión que no corresponde a la deseada**. Esto ocurre porque `NPM` guarda en el caché una versión previamente instalada de un paquete, esto para mejorar los tiempos de instalación.
+
+En esta situación, puedes utilizar los siguientes comandos, el primero para **borrar el caché de `NPM`** y el segundo para **verificar si están eliminados correctamente**.
+
+```bash
+npm cache clean --force 
+npm cache verify
 ```
