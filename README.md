@@ -426,3 +426,75 @@ En esta situación, puedes utilizar los siguientes comandos, el primero para **b
 npm cache clean --force 
 npm cache verify
 ```
+
+## Eliminación de dependencias y Packahe Lock
+
+Conocer cómo eliminar dependencias, también es importante para mantener **tus proyectos sin paquetes que no aporten la solución a tu problema, que ya no sean actualizados, o que exista una mejor implementación.**
+
+### Cómo eliminar paquetes
+
+Existen dos formas de eliminar paquetes:
+
+- Eliminando el paquete con el siguiente comando:
+
+```bash
+npm uninstall <paquete>
+```
+
+- Eliminarlo manualmente del archivo `package.json`. Al eliminar un paquete de manera manual, es necesario actualizar el directorio de `node_modules`.
+
+#### Cómo actualizar el directorio de `node_modules`
+
+Actualizar el directorio `node_modules` sirve para limpiar las dependencias que previamente estaban en el proyecto. También cuando existe algún archivo corrupto o una mala instalación.
+
+Por lo tanto, deberás eliminar el directorio de `node_modules` y después ejecutar el comando `npm install` para instalar correctamente los paquetes. En ciertas situaciones, también es necesario eliminar el archivo `package-lock.json`.
+
+Puedes utilizar el siguiente comando de **NPM** para evitar escribir demasiado cada vez que lo necesites.
+
+```json
+// package.json
+{ 
+  "scripts": { 
+    "phoenix": "rm -f package-lock.json && rm -rf ./node_modules && npm i --no-fund --no-audit" 
+  } 
+}
+```
+
+### Mostrar los pasos ejecutados por un comando de **NPM**
+
+Para identificar el error que puede existir en tu proyecto, es necesario analizar cada paso que ejecuta un comando, para saber en qué punto específico ocurre el problema.
+
+El flag `--dd` en un comando de **NPM**, te mostrará de manera detallada cada paso ejecutado. De esta manera podrás observar si existe un error para solucionarlo.
+
+```bash
+npm [comando] --dd
+```
+
+Otra forma, es ejecutar el comando de **NPM**. Si existe un error, la terminal te mostrará los diferentes errores que encontró.
+
+![Errores en comandos de NPM](https://static.platzi.com/media/articlases/Images/npm03.png)
+
+```bash
+npm run buld --dd
+```
+
+### Qué es el archivo `package-lock.json`
+
+**El archivo `package-lock.json` describe todo el árbol de dependencias de cada paquete instalado.**
+
+Cuando alguien hace **fork** de un repositorio no tiene el directorio `node_modules` por el archivo `.gitignore`. Mediante el comando `npm install`, instalarán las dependencias indicadas en el `package.json` con la versión indicada. También, se instalarán las **sub-dependencias** indicadas en `package-lock.json` con la versión indicada.
+
+Esto es importante para tener instaladas siempre la versión adecuada del paquete a utilizar en el proyecto.
+
+### Ver las dependencias deprecated
+
+**Las dependencias deprecated son aquellas que ya no son mantenidas por el desarrollador**. Esto significa que no se actualizarán más, por lo tanto, no se corregirán errores ni vulnerabilidades de seguridad.
+
+> **Nota:** En el contexto de la programación es común encontrarse con código al que se denomina deprecated. Basicamente el autor esta diciendo:
+>> _"Esto que te ofrezco sigue funcionando, pero yo ya no me responsabilizo de que siga haciéndolo en un futuro, así que úsalo bajo tu propia responsabilidad (y no llores si deja de funcionar)."_
+
+También llamado `npm clean install`. Este comando es similar al comando npm install. Con la diferencia que está pensado para ser utilizado en ambientes automatizados.
+
+Por ejemplo. Plataforma de pruebas, integración continua o cualquier otra situación que se requiera realizar una instalación limpia de las dependencias.
+
+Las principales diferencias entre install y ci se listan [aquí](https://docs.npmjs.com/cli/v8/commands/npm-ci).
