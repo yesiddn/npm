@@ -567,6 +567,12 @@ let random = require('../src/index.js');
 random.funnyCommit();
 ```
 
+La diferencia entre un módulo `local` y un módulo `global` es que el `local` **se guarda DENTRO de la carpeta del proyecto**, por lo cual, si quieres ejecutar el script en una terminal, tendrás que viajar primero a la carpeta.
+
+El `global`, en cambio, **lo guarda en un path “universal”** (tú mismo puedes personalizarlo) el punto es que puedes ejecutar los scripts de este módulo sin importar en dónde estés ubicado dentro de tu terminal.
+
+Según he leído, se recomienda siempre mantener módulos locales para evitar bugs tremendos de compatibilidad entre tus proyectos y realmente son pocos los módulos que merecen la pena trabajar globales, solo aquellos que te brindan comandos de terminal que frecuentes mucho o que uses en la mayoría de tus proyectos, de resto, es mejor manejar módulos locales.
+
 `#!/usr/bin/env node` es una instrucción que sirve para indicar que este archivo se ejecutará con `Nodejs`. Después realizamos la importación de nuestro archivo `index.js`. Finalmente, ejecutamos la función de mensajes aleatorios `funnyCommit`.
 
 ### Modificar el archivo `package.json` para el proyecto
