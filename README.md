@@ -592,3 +592,52 @@ En el archivo `package.json`, agrega **"bin"**, haciendo referencia a nuestro ar
 El nombre que especifiquemos dentro de **"bin"** será el que utilicemos en la terminal cuando el paquete esté instalado.
 
 **¡Listo! Ya tienes un paquete para publicarlo en NPM.**
+
+## Publicación de paquetes
+
+Antes de publicar el proyecto de mensajes aleatorios, debes asegurarte de que el paquete funcione correctamente.
+
+### Cómo utilizar el comando _`npm link`_
+
+El comando `sudo npm link` crea un enlace simbólico para reconocer este paquete dentro del listado de NPM, **sin publicarlo todavía.**
+
+Si no presenta errores, está listo para ser publicado.
+
+### Cómo simular la instalación de tu paquete
+
+Para simular la instalación de tu paquete de manera local, identifica el directorio en el que te encuentras con el comando `pwd`, **debe ser el mismo del proyecto**.
+
+Después, ejecuta `npm install -g <ruta>`, donde la ruta es del directorio de tu proyecto. Esto sirve para instalarlo de manera global.
+
+```bash
+sudo npm install -g /Users/tuUsuario/tu-paquete
+```
+
+De esta manera, ya puedes ejecutar el programa con el comando que creamos en `"bin"`, `random-str-msg` y funcionará de forma global en el sistema.
+
+```bash
+random-str-msg
+/* Output
+Commit committed
+*/
+
+random-str-msg
+/* Output
+Here be Dragons
+*/
+```
+
+### Cómo publicar un paquete en NPM
+
+Una vez revisado que el paquete funcione correctamente, debes asegurarte de cumplir con los siguientes requisitos:
+
+- Asegurar que el programa funcione reduciendo en lo posible los _bugs_.
+- Revisar que la configuración del archivo `package.json` sea correcta.
+- Tener un nombre único para el proyecto, usando guiones (-) para separar palabras y evitando números.
+- [Crear una cuenta](https://www.npmjs.com/signup) en **NPM**, ya que aquí estarán tus paquetes a tu nombre. Después, debes utilizar el comando `npm adduser` para iniciar sesión en la terminal. Llena los datos, si no aparece tu contraseña, no te preocupes, es una forma de seguridad.
+
+Una vez hayas cumplido los requisitos, **ejecuta el comando `npm publish`** y si no existen errores, tu paquete será publicado.
+
+#### Validar con qué usuario publicar un paquete en NPM
+
+Para **validar el usuario** con el que publicarás un paquete en **NPM**, debes utilizar el comando `npm whoami` para visualizar el usuario actual, **esto es importante si tienes varias cuentas de NPM**.
