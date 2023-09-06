@@ -641,3 +641,79 @@ Una vez hayas cumplido los requisitos, **ejecuta el comando `npm publish`** y si
 #### Validar con qué usuario publicar un paquete en NPM
 
 Para **validar el usuario** con el que publicarás un paquete en **NPM**, debes utilizar el comando `npm whoami` para visualizar el usuario actual, **esto es importante si tienes varias cuentas de NPM**.
+
+## Versionado de paquetes y paquetes privados
+
+El versionado semántico consiste en la estructura que debemos seguir para colocar una versión a nuestro paquete.
+
+### Qué es el versionado semántico
+
+El versionado semántico está conformado por tres valores:
+
+- **Major:** el valor que muestra la versión que contiene los cambios importantes del paquete.
+- **Minor:** el valor que muestra la versión que contiene los cambios en funcionalidades, pero no representan un cambio significativo.
+- **Patch:** el valor que muestra la versión que contiene cambios rápidos para solucionar problemas de seguridad o _bugs_.
+
+![Versionado de paquetes en NPM](https://static.platzi.com/media/user_upload/wheelbarrel-no-tilde-caret-white-bg-w1000-72ca1a72-4c7f-4abe-8482-425c01a72f89.jpg)
+
+#### Símbolos ^ y ~ para actualizar las versiones minor y patch
+
+**Existen dos símbolos que acompañan al versionado sirven para actualizar las versiones _minor_ y _patch_ del paquete.**
+
+- **Caret (^):** Permite actualizar las versiones _minor_ y _patch_.
+- **Tilde (~):** Permite actualizar las versiones _patch_.
+
+Por ejemplo, tenemos la versión `5.2.3`:
+
+- Si tiene el _carret_ `^5.2.3`, actualizará la versión _minor_ y _patch_, por lo que tendrás versiones como `^5.3.3`, `^5.4.3`, `^5.4.4`, y así sucesivamente. Pero no versiones mayores a `6.0.0`.
+- Si tiene la _tilde_ `~5.2.3`, actualizará la versión de _patch_, por lo que tendrás versiones como `~5.2.4`, `~5.2.5`, `~5.2.6`, y así sucesivamente. Pero no versiones mayores a `5.3.0`.
+
+#### Buenas prácticas en el versionado de paquetes
+
+**Lo recomendable es eliminar estos símbolos y tener la versión exacta** (sin símbolos) para evitar problemas de versionado, principalmente con paquetes que los mantienen pocas personas o no son fiables.
+
+Debes manejar las actualizaciones cuando sea pertinente y asegurándote que no entrará en conflicto la nueva versión con la antigua.
+
+### Cómo realizar cambios a la versión de tu paquete de NPM
+
+**Si realizas cambios en tu código, tienes que cambiar la versión de tu paquete.** Debes utilizar los siguientes comandos, según la versión que desees cambiar:
+
+```bash
+
+## Aumenta una version path (1.0.0) -> (1.0.1)
+
+$ npm version patch
+
+## Aumenta una version minor (1.0.0) -> (1.1.0)
+
+$ npm version minor
+
+## Aumenta una version major (1.0.0) -> (2.0.0)
+
+$ npm version major
+
+## Aumenta una version específica (1.0.0) -> (3.1.1)
+
+$ npm version 
+```
+
+Una vez actualizada la versión de tu paquete, puedes ejecutar nuevamente el comando `npm publish` para actualizarlo en los repositorios de NPM.
+
+### Paquetes privados
+
+Para usar paquetes privados necesitas:
+
+- Una versión igual o superior a la 2.7.0 de NPM.
+- Tener una cuenta de **usuario u organización de pago**.
+
+En un paquete privado de NPM, solo pueden participar el propietario y los colaboradores autorizados. De esta manera, puedes seguir construyendo el paquete con una combinación de **código privado y dependencias públicas**.
+
+### Actualizar tu paquete en NPM con buenas prácticas
+
+Tu paquete debe contener toda la información posible para que el usuario puede instalarlo, utilizarlo y hasta colaborar para solucionar posibles _bugs_. Por ende, **es necesario que tengas configurado, por lo menos, un archivo `README.md`** y un repositorio remoto (GitHub, GitLab, etc.).
+
+Una vez tengas estos requisitos, puedes actualizar tu paquete a una nueva versión, luego publícalo nuevamente.
+
+#### Cómo crear un archivo _README.md_ para tu paquete
+
+Para crear un archivo _README.md_ puedes utilizar esta [estructura base](https://gist.github.com/gndx/1b2c8482049c6d3b521dffcf33337558) y adecuarla a tu proyecto. Puedes ver el código haciendo clic en el botón "Raw".
